@@ -1,5 +1,4 @@
 package boj_java;
-<<<<<<< HEAD
 import java.util.StringTokenizer;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -27,15 +26,5 @@ public class p10950 {
 		}
 		bw.flush();
 		bw.close();
-		
-=======
-
-public class p10950 {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
->>>>>>> 1e67bf899b6eaa9474ac7418a2da2d72d813790f
 	}
-
 }

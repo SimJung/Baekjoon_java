@@ -47,7 +47,7 @@ public class p10845 {
 	}
 	
 	static int empty() {
-		if(back == -1) return 1;
+		if(back == front-1) return 1;
 		return 0;
 	}
 	
@@ -60,7 +60,7 @@ public class p10845 {
 		return arr[front++];
 	}
 	static int size() {
-		return back -front+1;
+		return back - front + 1;
 	}
 	
 	static int frontf() {

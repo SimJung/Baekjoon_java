@@ -1,5 +1,7 @@
 package boj_java;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.StringTokenizer;
@@ -8,11 +10,10 @@ public class p2493 {
 
 	public static void main(String[] args) throws IOException{
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-		int N;
-		N = Integer.parseInt(bf.readLine());
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		int N = Integer.parseInt(bf.readLine());
 		Stack<int[]> s = new Stack<int[]>();
-		String str;
-		str = bf.readLine();
+		String str = bf.readLine();
 		StringTokenizer st = new StringTokenizer(str);
 		int arr[] = new int[N];
 		int ans[] = new int[N];
@@ -29,9 +30,10 @@ public class p2493 {
 		}
 		
 		for(int i=0; i<N; i++) {
-			System.out.print(ans[i]+" ");
+			bw.write(ans[i] + " ");
 		}
-		System.out.println();
+		bw.write("\n");
+		bw.flush();
+		bw.close();
 	}
-
 }

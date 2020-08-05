@@ -1,34 +1,28 @@
 package boj_java;
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.util.Arrays;
 import java.util.Scanner;
-public class p15657 {
+
+public class p15652 {
 	static int N, M;
-	static int[] arr;
 	static int[] ans;
 	static BufferedWriter bf = new BufferedWriter(new OutputStreamWriter(System.out));
-	public static void main(String[] args) throws IOException {
+	
+	public static void main(String[] args) throws IOException{
 		Scanner sc = new Scanner(System.in);
 		N = sc.nextInt();
 		M = sc.nextInt();
-		arr = new int[N];
 		ans = new int[M];
 		
-		for(int i=0; i<N; i++)
-			arr[i] = sc.nextInt();
-		
-		Arrays.sort(arr);
-		
-		perm(0, 0);
+		comb(0, 0);
 		bf.flush();
 		bf.close();
 		
 	}
 	
-	public static void perm(int cnt, int idx) throws IOException
-	{
+	public static void comb(int cnt, int idx) throws IOException{
 		if(cnt == M) {
 			for(int i=0; i<M; i++) {
 				bf.write(ans[i]+" ");
@@ -38,11 +32,8 @@ public class p15657 {
 		}
 		
 		for(int i=idx; i<N; i++) {
-			ans[cnt] = arr[i];
-			perm(cnt+1, i);
+			ans[cnt] = i+1;
+			comb(cnt+1, i);
 		}
 	}
-	
 }
-
-	

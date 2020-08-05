@@ -1,11 +1,15 @@
 package boj_java;
 import java.util.Scanner;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Arrays;
 public class p15655 {
 	static int arr[];
 	static int n, m;
 	static int ans[];
-	public static void main(String[] args) {
+	static BufferedWriter bf = new BufferedWriter(new OutputStreamWriter(System.out));
+	public static void main(String[] args) throws IOException{
 		Scanner sc = new Scanner(System.in);
 		n = sc.nextInt();
 		m = sc.nextInt();
@@ -18,15 +22,16 @@ public class p15655 {
 		Arrays.sort(arr);
 		
 		comb(0, 0);
+		bf.flush();
+		bf.close();
 	}
 	
-	public static void comb(int cnt, int idx) {
+	public static void comb(int cnt, int idx) throws IOException{
 		if(cnt == m)
 		{
-			for(int i=0; i<cnt; i++) {
-				System.out.print(ans[i] + " ");
-			}
-			System.out.println();
+			for(int i=0; i<cnt; i++)
+				bf.write(ans[i] + " ");
+				bf.write("\n");
 			return ;
 		}
 		

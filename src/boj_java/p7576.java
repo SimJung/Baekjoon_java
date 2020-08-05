@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.StringTokenizer;
 
 public class p7576 {
-	static int M, N, ans = 1;
+	static int M, N, ans = 1, tomato;
 	static int arr[][];
 	static Queue<int[]> q;
 	static boolean[][] visit;
@@ -29,11 +29,17 @@ public class p7576 {
 			st = new StringTokenizer(bf.readLine());
 			for(int j=0; j<M; j++) {
 				arr[i][j] = Integer.parseInt(st.nextToken());
-				if(arr[i][j] == 1) {
-					visit[i][j] = true;
+				switch(arr[i][j]) {
+				case 1:
 					q.offer(new int[] {i, j});
-				}else if(arr[i][j] == -1)
+				case -1:
 					visit[i][j] = true;
+					break;
+				case 0:
+					tomato++;
+					break;
+					
+				}
 			}
 		}
 		
@@ -49,24 +55,19 @@ public class p7576 {
 					continue;
 				
 				arr[ni][nj] = arr[ti][tj] + 1;
+				tomato--;
 				if(ans < arr[ni][nj])
 					ans = arr[ni][nj];
 				q.offer(new int[] {ni, nj});
 				visit[ni][nj] = true;
 			}
 		}
+
 		
-		for(int i=0; i<N; i++) {
-			for(int j=0; j<M; j++) {
-				if(arr[i][j] == 0)
-				{
-					System.out.println(-1);
-					return ;
-				}
-			}
-		}
-		
-		System.out.println(ans-1);
+		if(tomato == 0)
+			System.out.println(ans-1);
+		else
+			System.out.println("-1");
 	}
 
 }

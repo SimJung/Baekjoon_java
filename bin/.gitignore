@@ -1,6 +1,3 @@
-/boj_java/
-/.gitignore
-/temp.class
 /base.class
 /p1008.class
 /p1018.class
@@ -78,3 +75,5 @@
 /p8958.class
 /p9012.class
 /p9372.class
+/p2206.class
+/p2206$Count.class

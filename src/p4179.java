@@ -109,10 +109,43 @@ public class p4179 {
 					int nj = dir[j][1]+jPos.peek()[1];
 					if(canJGo(ni, nj)) {
 						nowJpos.offer(new int[] {ni, nj});
+						map[ni][nj] = 'J';
+						times[ni][nj] = times[jPos.peek()[0]][jPos.peek()[1]]+1;
+					}else if(canJEscape(ni, nj)) {
+						System.out.println(times[jPos.peek()[0]][jPos.peek()[1]]+1);
+						return ;
 					}
-					
 				}
-				
+				jPos.poll();
+			}
+			
+			int nowFireSz = firePos.size();
+			for(int i=0; i<nowFireSz; i++) {
+				int temp[] = firePos.peek();
+				for(int j=0; j<4; j++) {
+					int ni = temp[0]+ dir[j][0];
+					int nj = temp[1]+ dir[j][1];
+					if(canFGo(ni, nj)) {
+						map[ni][nj] = 'F';
+						times[ni][nj] = TimeOver;
+						firePos.offer(new int[] {ni, nj});
+					}
+				}
+				firePos.poll();
+			}
+			
+			while(!nowJpos.isEmpty()) {
+				int ni = nowJpos.peek()[0];
+				int nj = nowJpos.peek()[1];
+				if(isJAlive(ni, nj)) {
+					jPos.offer(new int[] {ni, nj});
+				}
+				nowJpos.poll();
+			}
+			
+			if(jPos.isEmpty()) {
+				System.out.println("IMPOSSIBLE");
+				return ;
 			}
 		}
 	}
@@ -133,5 +166,11 @@ public class p4179 {
 		if(i < 0 || i >= r || j < 0 || j >= c || map[i][j] != 'J')
 			return false;
 		return true;
+	}
+	
+	static boolean canJEscape(int i, int j) {
+		if(i < 0 || i >= r || j < 0 || j >= c)
+			return true;
+		return false;
 	}
 }

@@ -45,7 +45,9 @@ public class p4179 {
 				}
 			}
 		}
+		/*
 		while(!jPos.isEmpty()) {
+			
 			int nowi = jPos.peek()[0];
 			int nowj = jPos.peek()[1];
 			jPos.poll();
@@ -74,6 +76,7 @@ public class p4179 {
 			}
 			
 			for(int i=0; i<4; i++) {
+				
 				int ni = nowi + dir[i][0];
 				int nj = nowj + dir[i][1];
 				if(isJAlive(ni, nj)) {
@@ -94,6 +97,24 @@ public class p4179 {
 			
 		}
 		System.out.println("IMPOSSIBLE");
+		*/
+		
+		Queue<int[]> nowJpos = new LinkedList<>();
+		while(true) {
+			int nowJposSz = jPos.size();
+			nowJpos.clear();
+			for(int i=0; i<nowJposSz; i++) {
+				for(int j=0; j<4; j++) {
+					int ni = dir[j][0]+jPos.peek()[0];
+					int nj = dir[j][1]+jPos.peek()[1];
+					if(canJGo(ni, nj)) {
+						nowJpos.offer(new int[] {ni, nj});
+					}
+					
+				}
+				
+			}
+		}
 	}
 	
 	static boolean canJGo(int i, int j) {

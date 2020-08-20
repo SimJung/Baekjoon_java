@@ -72,14 +72,23 @@ public class p14502 {
 		System.out.println(answer);
 	}
 	
+	
+	
+	
+	
 	public static void make_wallQueue(int cnt, int idx) {
 		if(cnt == 3) {
 			for(int i=0; i<3; i++) {
 				if(lab[combinationTemp[i]/M][combinationTemp[i]%M] != 0)
 					return ;
 			}
-			wallQueue.offer(new int[][] {{combinationTemp[0]/M, combinationTemp[0]%M}, {combinationTemp[1]/M, combinationTemp[1]%M}, {combinationTemp[2]/M, combinationTemp[2]%M}});
+			wallQueue.offer(new int[][] {
+				{combinationTemp[0]/M, combinationTemp[0]%M},
+				{combinationTemp[1]/M, combinationTemp[1]%M},
+				{combinationTemp[2]/M, combinationTemp[2]%M}});
 		}else {
+			
+			
 			for(int i=idx; i<N*M; i++) {
 				combinationTemp[cnt] = i;
 				make_wallQueue(cnt+1, i+1);

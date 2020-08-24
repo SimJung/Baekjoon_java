@@ -8,8 +8,8 @@ public class p18111 {
 	public static void main(String[] args) throws IOException{
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(bf.readLine());
-		int n, m, b, minVal=1000, maxVal=-1, time=2000000001, height=0;
-		
+		int n, m, b, minVal=Integer.MAX_VALUE, maxVal=-1, height=0;
+		long time=Integer.MAX_VALUE;
 		n = Integer.parseInt(st.nextToken());
 		m = Integer.parseInt(st.nextToken());
 		b = Integer.parseInt(st.nextToken());
@@ -25,25 +25,21 @@ public class p18111 {
 		}
 		
 		for(int i=maxVal; i>=minVal; i--) {
-			int tempB = b, tempTime=0;
-			boolean enoughBlock = true;
+			long tempB = b, tempTime=0;
 			for(int j=0; j<n; j++) {
 				for(int k=0; k<m; k++) {
 					if(i > arr[j][k]) {
-						if(i - arr[j][k] <= tempB) {
-							tempB -= (i-arr[j][k]);
-							tempTime += (i-arr[j][k]);
-						}else {
-							enoughBlock = false;
-							break;
-						}
+						tempB -= Math.abs(i-arr[j][k]);
+						tempTime += Math.abs(i-arr[j][k]);
 					}else if(i < arr[j][k]) {
-						tempTime += (arr[j][k]-i)*2;
+						tempTime += Math.abs(arr[j][k]-i)*2;
+					}else {
+						continue;
 					}
 				}
-				if(!enoughBlock) break;
 			}
-			if(enoughBlock && time > tempTime) {
+			if(tempB < 0) break;
+			if(time > tempTime) {
 				time = tempTime;
 				height = i;
 			}

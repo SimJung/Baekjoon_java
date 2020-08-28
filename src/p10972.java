@@ -6,38 +6,49 @@ import java.util.Collections;
 import java.util.StringTokenizer;
 
 public class p10972 {
-	static boolean visit[];
-	static ArrayList<Integer> arr = new ArrayList<>();
-	static ArrayList<Integer> curPerm = new ArrayList<>();
-	static ArrayList<Integer> ansPerm = new ArrayList<>();
-	static boolean chk = false;
+	static int arr[];
 	static int N;
 	public static void main(String[] args) throws IOException{
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 		N = Integer.parseInt(bf.readLine());
-		visit = new boolean[N];
 		StringTokenizer st = new StringTokenizer(bf.readLine());
+		arr = new int[N];
 		for(int i=0; i<N; i++) {
-			int num = Integer.parseInt(st.nextToken());
-			arr.add(num);
-			curPerm.add(num);
+			arr[i] = Integer.parseInt(st.nextToken());
 		}
-		Collections.sort(arr);
 		
-		getAns(0);
+		if(np()) {
+			for(int i=0; i<arr.length; i++) {
+				System.out.print(arr[i]+" ");
+			}
+			System.out.println();
+		}else {
+			System.out.println("-1");
+		}
 	}
 	
-	public static void getAns(int cnt, int idx) {
-		if(cnt == N) {
-			if(!chk) {
-				for(int i=0; i<N; i++) {
-					
-				}
-			}else {
-				
-			}
-			
-		}
+	public static boolean np() {
+		int i = arr.length-1;
+		while(i > 0 && arr[i-1] >= arr[i]) i--;
+		
+		if(i == 0) return false;
+		
+		int j = arr.length-1;
+		while(arr[i-1] >= arr[j]) j--;
+		
+		swap(i-1, j);
+		
+		int k = arr.length-1;
+		while(i < k) swap(i++, k--);
+		
+		return true;
+		
+	}
+	
+	public static void swap(int i, int j) {
+		int temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
 	}
 
 }

@@ -35,6 +35,10 @@ public class p19637 {
 		bw.close();
 	}
 	
+	//lower_bound
+	//upper_bound
+	
+	
 	public static int binary_search(int left, int right, int val) {
 		if(left == N) return N-1;
 		else if(left > right) return left;

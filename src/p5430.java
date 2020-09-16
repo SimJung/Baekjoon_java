@@ -28,7 +28,10 @@ public class p5430 {
 					if(nowDel == 0) nowDel = arrList.size()-1;
 					else nowDel = 0;
 				}else {
-					if(arrList.size() > 0) arrList.remove(nowDel);
+					if(arrList.size() > 0) {
+						arrList.remove(nowDel);
+						if(nowDel == arrList.size()) nowDel--;
+					}
 					else {
 						error = true;
 						break;
@@ -39,13 +42,20 @@ public class p5430 {
 			if(error) System.out.println("error");
 			else {
 				System.out.print("[");
-				for(int i=0; i<arrList.size()-1; i++) {
-					System.out.print(arrList.get(i)+",");
+				if(nowDel == 0) {
+					for(int i=0; i<arrList.size()-1; i++) {
+						System.out.print(arrList.get(i)+",");
+					}
+					if(arrList.size()>0)
+						System.out.print(arrList.get(arrList.size()-1));
+				}else {
+					for(int i=arrList.size()-1; i>0; i--) {
+						System.out.print(arrList.get(i)+",");
+					}
+					if(arrList.size()>0)
+						System.out.print(arrList.get(0));
 				}
-				if(arrList.size()>0)
-					System.out.println(arrList.get(arrList.size()-1) + "]");
-				else
-					System.out.println("]");
+				System.out.println("]");
 			}
 		}
 	}

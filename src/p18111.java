@@ -9,7 +9,7 @@ public class p18111 {
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(bf.readLine());
 		int n, m, b, minVal=Integer.MAX_VALUE, maxVal=-1, height=0;
-		long time=Integer.MAX_VALUE;
+		int time=Integer.MAX_VALUE;
 		n = Integer.parseInt(st.nextToken());
 		m = Integer.parseInt(st.nextToken());
 		b = Integer.parseInt(st.nextToken());
@@ -25,7 +25,7 @@ public class p18111 {
 		}
 		
 		for(int i=maxVal; i>=minVal; i--) {
-			long tempB = b, tempTime=0;
+			int tempB = b, tempTime=0;
 			for(int j=0; j<n; j++) {
 				for(int k=0; k<m; k++) {
 					if(i > arr[j][k]) {
@@ -33,12 +33,13 @@ public class p18111 {
 						tempTime += Math.abs(i-arr[j][k]);
 					}else if(i < arr[j][k]) {
 						tempTime += Math.abs(arr[j][k]-i)*2;
+						tempB += Math.abs(arr[j][k]-i);
 					}else {
 						continue;
 					}
 				}
 			}
-			if(tempB < 0) break;
+			if(tempB < 0) continue;
 			if(time > tempTime) {
 				time = tempTime;
 				height = i;

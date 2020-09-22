@@ -12,16 +12,19 @@ public class p10158 {
 		
 		int ni = q;
 		int nj = p;
-		int tempT = t % 2*H;
-		while(t-- > 0) {
+		int tempT = t % (2*H);
+		while(tempT-- > 0) {
 			ni += moveI;
-			nj += moveJ;
 			if(ni < 0 || ni > H) {
 				ni -= moveI;
 				moveI *= -1;
 				ni += moveI;
 			}
-			
+		}
+		
+		tempT = t % (2*W);
+		while(tempT-- > 0) {
+			nj += moveJ;
 			if(nj < 0 || nj > W) {
 				nj -= moveJ;
 				moveJ *= -1;

@@ -1,7 +1,8 @@
 import java.util.Scanner;
 
 public class p17070 {
-	static int N, ans;
+	static int N;
+	static long ans;
 	static boolean arr[][];
 	static int[][] delta = { { 0, 1 }, { 1, 1 }, { 1, 0 } };
 

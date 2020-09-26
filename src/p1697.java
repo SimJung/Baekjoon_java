@@ -11,7 +11,7 @@ public class p1697 {
 		Scanner sc = new Scanner(System.in);
 		N = sc.nextInt();
 		K = sc.nextInt();
-		
+		 
 		arr = new int[100001];
 		visit = new boolean[100001];
 		

@@ -13,8 +13,22 @@ public class p8972 {
 			this.j = j;
 		}
 	}
+	
+	static class NewCrazy{
+		public int i;
+		public int j;
+		
+		public int pi;
+		public int pj;
+		public NewCrazy(int i, int j, int pi, int pj) {
+			super();
+			this.i = i;
+			this.j = j;
+		}
+	}
 	public static int R, C, nowI, nowJ;
 	public static ArrayList<Crazy> crazy[][];
+	public static Queue<NewCrazy> newCrazy = new LinkedList<>();
 	public static char arr[][];
 	
 	public static int delta[][] = {
@@ -87,11 +101,19 @@ public class p8972 {
 					System.out.println("kraj "+(i+1));
 					return ;
 				}
-				crazy[tI+delta[dir][0]][tJ+delta[dir][1]].add(crazy[tI][tJ].get(0));
+				newCrazy.offer(new NewCrazy(crazy[tI][tJ].get(0).i, crazy[tI][tJ].get(0).j, delta[dir][0], delta[dir][1]));
 				crazy[tI][tJ].clear();
 				arr[tI][tJ] = '.';
-				arr[tI+delta[dir][0]][tJ+delta[dir][1]] = 'R';
-				boomCrazy.add(new int[] {tI + delta[dir][0], tJ+delta[dir][1]});
+			}
+			
+			while(!newCrazy.isEmpty()) {
+				int ni = newCrazy.peek().i + newCrazy.peek().pi;
+				int nj = newCrazy.peek().j + newCrazy.peek().pj;
+				newCrazy.poll();
+				
+				arr[ni][nj] = 'R';
+				crazy[ni][nj].add(new Crazy(ni, nj));
+				boomCrazy.add(new int[] {ni, nj});
 			}
 			
 			for(int j=0; j<boomCrazy.size(); j++) {
@@ -112,6 +134,7 @@ public class p8972 {
 			}
 			
 			
+			/*
 			for(int j=0; j<R; j++) {
 				for(int k=0; k<C; k++) {
 					System.out.print(arr[j][k]);
@@ -119,7 +142,7 @@ public class p8972 {
 				System.out.println();
 			}
 			System.out.println();
-			
+			*/
 		}
 		
 		for(int i=0; i<R; i++) {

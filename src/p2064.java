@@ -6,7 +6,7 @@ public class p2064 {
 	public static int ip[] = {-1, -1, -1, -1};
 	public static int mask[] = {255, 255, 255, 255};
 	public static int i_diff = 256;
-	public static int j_diff = -1;
+	public static int j_diff = 0;
 	public static long maxVal;
 	public static long minVal = Long.MAX_VALUE;
 	public static void main(String[] args) {
@@ -21,34 +21,31 @@ public class p2064 {
 				if(ip[i] == -1) {
 					ip[i] = now;
 				}else if(ip[i] != now){
-					ip[i] &= now;
-					if(i_diff > i) {
+					if(i_diff >= i) {
+						if(i_diff > i) j_diff = 0;
 						i_diff = i;
-						j_diff = 0;
-						boolean chk = false;
-						for(int j=7; j>=0; j--) {
-							if(chk) {
-								j_diff |= (1<<j);
-							}else if((ip[i] & (1<<j)) != (now & (1<<j))) {
-								chk = true;
-								j_diff |= (1<<j);
+						for(int j=7; j>=j_diff; j--) {
+							if((ip[i] & (1<<j)) != (now & (1<<j))) {
+								j_diff = j;
+								break;
 							}
 						}
 					}
+					ip[i] &= now;
 				}
 				
 			}
 		}
 		
 		
-		if(i_diff != 256 && j_diff != -1) {
+		if(i_diff != 256) {
 			boolean isDiff = false;
 			for(int i=0; i<4; i++) {
 				for(int j=7; j>=0; j--) {
 					if(isDiff) {
 						ip[i] &= ~(1<<j);
 						mask[i] &= ~(1<<j);
-					}else if(i == i_diff && (j_diff & (1<<j)) != 0) {
+					}else if(i == i_diff && j == j_diff) {
 						isDiff = true;
 						ip[i] &= ~(1<<j);
 						mask[i] &= ~(1<<j);

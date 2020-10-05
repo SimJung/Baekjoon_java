@@ -13,7 +13,7 @@ public class p17129 {
 		public Bird(int i, int j, int time) {
 			super();
 			this.i = i;
-			this.j = j;
+			this.j = j; 
 			this.time = time;
 		}
 	}

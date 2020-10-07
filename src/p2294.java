@@ -11,7 +11,7 @@ public class p2294 {
 		K = sc.nextInt();
 		
 		coins = new int[N];
-		dp = new int[K+1];
+		dp = new int[100001];
 		Arrays.fill(dp, 1000000000);
 		for(int i=0; i<N; i++) {
 			coins[i] = sc.nextInt();

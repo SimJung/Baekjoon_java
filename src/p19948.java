@@ -21,7 +21,7 @@ public class p19948 {
 			arr[getIdx(sb.charAt(0))]--;
 			
 			if(sb.charAt(0) >= 'a' && sb.charAt(0) <= 'z') {
-				title.append(sb.charAt(0) - 'a' + 'A');
+				title.append((char)(sb.charAt(0) - 'a' + 'A'));
 			}else {
 				title.append(sb.charAt(0));
 			}
@@ -34,7 +34,7 @@ public class p19948 {
 			if(sb.charAt(i) != sb.charAt(i-1)) {
 				if(sb.charAt(i-1) == ' ') {
 					if(sb.charAt(i) >= 'a' && sb.charAt(i) <= 'z') {
-						title.append(sb.charAt(i) - 'a' + 'A');
+						title.append((char)(sb.charAt(i) - 'a' + 'A'));
 					}else {
 						title.append(sb.charAt(i));
 					}
@@ -52,6 +52,24 @@ public class p19948 {
 						System.out.println("-1");
 						return ;
 					}
+				}
+			}
+		}
+		
+		if(arr[getIdx(title.charAt(0))] > 0) {
+			arr[getIdx(title.charAt(0))]--;
+			
+		}else {
+			System.out.println("-1");
+			return ;
+		}
+		
+		for(int i=1; i<title.length(); i++) {
+			if(title.charAt(i) != title.charAt(i-1)) {
+				arr[getIdx(title.charAt(i))]--;
+				if(arr[getIdx(title.charAt(i))] < 0) {
+					System.out.println("-1");
+					return ;
 				}
 			}
 		}

@@ -17,43 +17,46 @@ public class p5430 {
 			numStr.delete(0, 1);
 			numStr.delete(numStr.length()-1, numStr.length());
 			
-			StringTokenizer st = new StringTokenizer(numStr.toString(), ",");
-			ArrayList<String> arrList = new ArrayList<>();
-			for(int i=0; i<N; i++) arrList.add(st.nextToken());
+			String strs[] = numStr.toString().split(",");
 			
-			int nowDel = 0;
-			boolean error = false;
-			for(int i=0; i<fun.length(); i++) {
-				if(fun.charAt(i) == 'R') {
-					if(nowDel == 0) nowDel = arrList.size()-1;
-					else nowDel = 0;
+			int front = 0;
+			int end = N-1;
+			boolean isFront = true;
+			boolean isError = false;
+			
+			for(int f=0; f<fun.length(); f++) {
+				if(fun.charAt(f) == 'R') {
+					isFront = !isFront;
 				}else {
-					if(arrList.size() > 0) {
-						arrList.remove(nowDel);
-						if(nowDel == arrList.size()) nowDel--;
+					if(isFront) {
+						front++;
+					}else {
+						end--;
 					}
-					else {
-						error = true;
+					N--;
+					if(N < 0) {
+						isError = true;
 						break;
 					}
 				}
 			}
 			
-			if(error) System.out.println("error");
-			else {
+			if(isError) {
+				System.out.println("error");
+			}else {
 				System.out.print("[");
-				if(nowDel == 0) {
-					for(int i=0; i<arrList.size()-1; i++) {
-						System.out.print(arrList.get(i)+",");
+				if(front <= end) {
+					if(isFront) {
+						for(int i=front; i<end; i++) {
+							System.out.print(strs[i]+",");
+						}
+						System.out.print(strs[end]);
+					}else {
+						for(int i=end; i>front; i--) {
+							System.out.print(strs[i]+",");
+						}
+						System.out.print(strs[front]);
 					}
-					if(arrList.size()>0)
-						System.out.print(arrList.get(arrList.size()-1));
-				}else {
-					for(int i=arrList.size()-1; i>0; i--) {
-						System.out.print(arrList.get(i)+",");
-					}
-					if(arrList.size()>0)
-						System.out.print(arrList.get(0));
 				}
 				System.out.println("]");
 			}

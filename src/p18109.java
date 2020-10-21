@@ -10,12 +10,20 @@ public class p18109 {
 		
 		int ans = 0;
 		for(int i=1; i<sb.length()-1; i++) {
+			
+			// 이전 캐릭터 : 모음 
 			if(isM(sb.charAt(i-1))) {
+				// 현재캐릭터 : 받침, 현재 캐릭터 : 초성, 이 다음 캐릭터 : 중성
 				if(isE(sb.charAt(i)) && isF(sb.charAt(i)) && isM(sb.charAt(i+1))) {
 					ans++;
 				}
+				
+			// 이전 캐릭터 : 겹받침1
 			}else if(isfE(sb.charAt(i-1))) {
+				
+				//지금 캐릭터 : 겹받침 2, 지금 캐릭터 : 초성, 나중 캐릭터: 모음
 				if(issE(sb.charAt(i-1), sb.charAt(i)) && isF(sb.charAt(i)) && isM(sb.charAt(i+1))) {
+					// 두번째 전 캐릭터 : 겹받침1이 아닐 경우에 도깨비불 현상이 일어난다.
 					if(i >= 2 && !isfE(sb.charAt(i-2))) 
 						ans++;
 				}
@@ -104,6 +112,7 @@ public class p18109 {
 		default : return false;
 		}
 	}
+	
 	
 	public static boolean issE(char c1, char c2) {
 		switch(c1) {

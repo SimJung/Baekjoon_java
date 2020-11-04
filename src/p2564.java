@@ -1,6 +1,71 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class p2564 {
+	public static class Info{
+		public int d;
+		public int p;
+		public Info(int d, int p) {
+			super();
+			this.d = d;
+			this.p = p;
+		}
+	}
+	public static int W, H, N, ans;
+	public static ArrayList<Info> stores = new ArrayList<>();
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		W = sc.nextInt();
+		H = sc.nextInt();
+		N = sc.nextInt();
+		for(int i=0; i <N; i++) {
+			stores.add(new Info(sc.nextInt(), sc.nextInt()));
+		}
+		
+		int d = sc.nextInt();
+		int pos = sc.nextInt();
+		switch(d) {
+		case 1:
+			break;
+			
+		case 2:
+			pos = W + H + (W - pos);
+			break;
+			
+		case 3:
+			pos = 2*W + H + (H - pos);
+			break;
+			
+		case 4:
+			pos += W;
+			break;
+			
+		}
+		for(int i=0; i<N; i++) {
+			int sp = stores.get(i).p;
+			switch(stores.get(i).d) {
+			case 1:
+				break;
+				
+			case 2:
+				sp = W + H + (W - sp);
+				break;
+				
+			case 3:
+				sp = 2*W + H + (H - sp);
+				break;
+				
+			case 4:
+				sp += W;
+				break;
+				
+			}
+			ans += Math.min(Math.abs(sp-pos), Math.abs(Math.abs(sp-pos) - W*2 - H*2));
+		}
+		
+		System.out.println(ans);
+	}
+	/*
 	static int N, M, S, dI, dJ, sum;
 	static int[][] arr;
 	public static void main(String[] args) {
@@ -129,5 +194,6 @@ public class p2564 {
 		}
 		System.out.println(sum);
 	}
-
+	
+	*/
 }

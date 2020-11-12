@@ -9,6 +9,9 @@ public class p1991 {
 	}
 	
 	public static Node[] arr;
+	public static StringBuilder pre = new StringBuilder();
+	public static StringBuilder in = new StringBuilder();
+	public static StringBuilder post = new StringBuilder();
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		
@@ -16,28 +19,25 @@ public class p1991 {
 		arr = new Node[N];
 		for(int i = 0; i<N; i++) {
 			char now = sc.next().charAt(0);
-			arr[now - 'A'] = new Node();
+			int idx = now - 'A';
+			arr[idx] = new Node();
 			
-			arr[now - 'A'].data = now;
-			arr[now - 'A'].left = sc.next().charAt(0);
-			arr[now - 'A'].right = sc.next().charAt(0);
+			arr[idx].data = now;
+			arr[idx].left = sc.next().charAt(0);
+			arr[idx].right = sc.next().charAt(0);
 		}
 		
-		recur(0, 0);
-		System.out.println();
-		recur(0, 1);
-		System.out.println();
-		recur(0, 2);
-		System.out.println();
+		recur(0);
+		System.out.println(pre.toString()+"\n"+in.toString()+"\n"+post.toString());
 	}
 	
 	// 0 : pre, 1 : in, 2 : post
-	public static void recur(int idx, int flag) {
-		if(flag == 0) System.out.print(arr[idx].data);
-		if(arr[idx].left != '.') recur(arr[idx].left - 'A', flag);
-		if(flag == 1) System.out.print(arr[idx].data);
-		if(arr[idx].right != '.') recur(arr[idx].right - 'A', flag);
-		if(flag == 2) System.out.print(arr[idx].data);
+	public static void recur(int idx) {
+		pre.append(arr[idx].data);
+		if(arr[idx].left != '.') recur(arr[idx].left - 'A');
+		in.append(arr[idx].data);
+		if(arr[idx].right != '.') recur(arr[idx].right - 'A');
+		post.append(arr[idx].data);
 	}
 
 }

@@ -13,7 +13,6 @@ public class p1016 {
 		
 		for(long i = 2; i*i<max; i++) {
 			long add = i*i;
-			if()
 			for(long j=0; j<=max-min; j+=add) {
 				
 			}

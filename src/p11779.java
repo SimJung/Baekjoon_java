@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
@@ -16,12 +17,12 @@ public class p11779 {
 		}
 		
 		public int compareTo(Edge e) {
-			return weight -e.weight;
+			return weight - e.weight;
 		}
 	}
-	public static int n, m, start, end, dist[], cnt;
+	public static int n, m, start, end, dist[], cnt, way[], ans, wayAns[];
 	public static ArrayList<Edge> edgeList[];
-	public static boolean visit[], found;
+	public static boolean found;
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		n = Integer.parseInt(br.readLine());
@@ -29,7 +30,8 @@ public class p11779 {
 		
 		edgeList = new ArrayList[n+1];
 		dist = new int[n+1];
-		visit = new boolean[n+1];
+		Arrays.fill(dist, Integer.MAX_VALUE);
+		way = new int[n+1];
 		for(int i=1; i<=n; i++){
 			edgeList[i] = new ArrayList<>();
 		}
@@ -47,25 +49,38 @@ public class p11779 {
 		start = Integer.parseInt(st.nextToken());
 		end = Integer.parseInt(st.nextToken());
 		
+		dist[start] = 0;
+		dijkstra(start, end, 0);
 		
+		System.out.println(dist[end]);
+		System.out.println(cnt+2);
+		System.out.print(start+" ");
+		for(int i=0; i<cnt; i++) {
+			System.out.print(way[i]+" ");
+		}
+		System.out.println(end);
 	}
 	
 	public static void dijkstra(int start, int end, int idx) {
 		PriorityQueue<Edge> pq = new PriorityQueue<>();
 		for(int i=0; i<edgeList[start].size(); i++) {
-			if(!visit[edgeList[start].get(i).to] && dist[edgeList[start].get(i).to] > dist[start] + edgeList[start].get(i).weight) {
-				visit[edgeList[start].get(i).to] = true;
+			if(dist[edgeList[start].get(i).to] > dist[start] + edgeList[start].get(i).weight) {
+				if(edgeList[start].get(i).to == end) {
+					cnt = idx;
+					wayAns = Arrays.copyOf(way, cnt);
+				}
 				dist[edgeList[start].get(i).to] = dist[start] + edgeList[start].get(i).weight;
 				pq.offer(new Edge(edgeList[start].get(i).to, dist[edgeList[start].get(i).to]));
 			}
 		}
 		
-		while(!pq.isEmpty() && !found) {
+		while(!pq.isEmpty()) {
 			Edge now = pq.poll();
 			
 			if(now.weight > dist[now.to]) continue;
 			
-			if(now.to == end)
+			way[idx] = now.to;
+			dijkstra(now.to, end, idx+1);
 		}
 	}
 }

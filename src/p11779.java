@@ -50,25 +50,23 @@ public class p11779 {
 		end = Integer.parseInt(st.nextToken());
 		
 		dist[start] = 0;
-		dijkstra(start, end, 0);
+		dijkstra(start, end, 1);
 		
 		System.out.println(dist[end]);
-		System.out.println(cnt+2);
-		System.out.print(start+" ");
-		for(int i=0; i<cnt; i++) {
-			System.out.print(way[i]+" ");
+		System.out.println(cnt);
+		int temp = start;
+		while(true) {
+			System.out.print(temp+" ");
+			if(temp == end) break;
+			temp = wayAns[temp];
 		}
-		System.out.println(end);
+		System.out.println();
 	}
 	
 	public static void dijkstra(int start, int end, int idx) {
 		PriorityQueue<Edge> pq = new PriorityQueue<>();
 		for(int i=0; i<edgeList[start].size(); i++) {
 			if(dist[edgeList[start].get(i).to] > dist[start] + edgeList[start].get(i).weight) {
-				if(edgeList[start].get(i).to == end) {
-					cnt = idx;
-					wayAns = Arrays.copyOf(way, cnt);
-				}
 				dist[edgeList[start].get(i).to] = dist[start] + edgeList[start].get(i).weight;
 				pq.offer(new Edge(edgeList[start].get(i).to, dist[edgeList[start].get(i).to]));
 			}
@@ -78,8 +76,15 @@ public class p11779 {
 			Edge now = pq.poll();
 			
 			if(now.weight > dist[now.to]) continue;
+			way[start] = now.to;
 			
-			way[idx] = now.to;
+			
+			if(now.to == end) {
+				cnt = idx+1;
+				wayAns = Arrays.copyOf(way, way.length);
+				continue;
+			}
+			
 			dijkstra(now.to, end, idx+1);
 		}
 	}

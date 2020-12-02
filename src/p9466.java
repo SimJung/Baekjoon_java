@@ -5,9 +5,7 @@ import java.util.StringTokenizer;
 
 public class p9466 {
 	public static int N, ans;
-	public static int arr[];
-	
-	public static boolean visit[], found;
+	public static int arr[], order[], fNum[];
 	
 	public static void main(String args[]) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -17,22 +15,18 @@ public class p9466 {
 			N = Integer.parseInt(br.readLine());
 			
 			arr = new int[N+1];
-			visit = new boolean[N+1];
+			order = new int[N+1];
+			fNum = new int[N+1];
 			ans = 0;
 			
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			for(int i=1; i<=N; i++) {
 				arr[i] = Integer.parseInt(st.nextToken());
-				if(arr[i] == i) {
-					visit[i] = true;
-					ans++;
-				}
 			}
 			
 			for(int i=1; i<=N; i++) {
-				found = false;
-				if(!visit[i]) {
-					dfs(i, i);
+				if(order[i] == 0) {
+					dfs(i, i, 1);
 				}
 			}
 			
@@ -41,25 +35,15 @@ public class p9466 {
 		}
 	}
 	
-	public static void dfs(int start, int end) {
-		ans++;
-		visit[start] = true;
-		if(visit[arr[start]]) {
-			if(arr[start] == end) {
-				found = true;
-				return ;
+	public static void dfs(int now, int start, int cnt) {
+		if(order[now] != 0) {
+			if(fNum[now] == start) {
+				ans += cnt-order[now];
 			}
-			
-			ans--;
-			visit[start] = false;
-			return ;
 		}else {
-			dfs(arr[start], end);
-			
-			if(!found) {
-				ans--;
-				visit[start] = false;
-			}
+			fNum[now] = start;
+			order[now] = cnt;
+			dfs(arr[now], start, cnt+1);
 		}
 		
 	}

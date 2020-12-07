@@ -4,7 +4,8 @@ import java.util.Scanner;
 
 public class p13549 {
 	public static int N, K, T;
-	public static Queue<Integer> q = new LinkedList<>();
+	public static Queue<Integer> tq = new LinkedList<>();
+	public static Queue<Integer> mq = new LinkedList<>();
 	public static boolean visit[] = new boolean[100001];
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -12,62 +13,72 @@ public class p13549 {
 		N = sc.nextInt();
 		K = sc.nextInt();
 		
+		mq.offer(N);
 		
-		visit[N] = true;
-		q.offer(N);
-		
-		while(true) {
-			int sz = q.size();
+		while(!mq.isEmpty() || !tq.isEmpty()) {
 			
-			for(int i=0; i<sz; i++) {
-				int now = q.poll();
+			while(!mq.isEmpty()) {
+				
+				int now = mq.poll();
+				tq.offer(now);
+				
 				if(now == K) {
 					System.out.println(T);
 					return ;
 				}
 				
-				int res = tp(now * 2);
-				if(res == -1) {
+				int tp = now*2;
+				while(tp <= 100000 && tp != 0) {
+					if(visit[tp]) {
+						tp *= 2;
+						continue;
+					}
+					
+					 visit[tp] = true;
+					 tq.offer(tp);
+					 if(tp == K) {
+							System.out.println(T);
+							return ;
+						}
+					 
+					 tp *= 2;
+				}
+			}
+			
+			while(!tq.isEmpty()) {
+				
+				int now = tq.poll();
+				if(now == K) {
+					System.out.println(T);
 					return ;
-				}else {
-					sz += res;
 				}
 				
-				
-				if(now - 1 >= 0 && !visit[now-1]) {
+				if(now-1 >= 0 && !visit[now-1]) {
 					if(now-1 == K) {
 						System.out.println(T+1);
 						return ;
 					}
+					
 					visit[now-1] = true;
-					q.offer(now-1);
+					mq.offer(now-1);
 				}
 				
-				if(now + 1 <= 100000 && !visit[now+1]) {
+				if(now+1 <= 100000 && !visit[now+1]) {
 					if(now+1 == K) {
 						System.out.println(T+1);
 						return ;
 					}
+					
 					visit[now+1] = true;
-					q.offer(now+1);
+					mq.offer(now+1);
 				}
+				
 			}
+			
 			
 			T++;
 		}
-	}
-
-	public static int tp(int t) {
-		if(t > 100000 || t == 0) return 0;
-		if(!visit[t]) {
-			visit[t] = true;
-			q.offer(t);
-			if(t == K) {
-				System.out.println(T);
-				return -1;
-			}
-			return tp(t*2)+1;
-		}
-		return tp(t*2);
+		
+		System.out.println(T);
 	}
 }

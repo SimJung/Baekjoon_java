@@ -56,37 +56,38 @@ public class p1918 {
 			}
 		}
 		
-		System.out.println(origin.toString());
+		//System.out.println(origin.toString());
 
-		Stack<Character> st = new Stack<>();
-		boolean isOk = false;
+		Stack<Character> st[] = new Stack[101];
+		for(int i=0; i<=100; i++) {
+			st[i] = new Stack<>();
+		}
+		int nowBn = 0;
 		for(int i=0; i<origin.length(); i++) {
 			switch(origin.charAt(i)) {
 			case '+':
 			case '*':
 			case '-':
 			case '/':
-				st.push(origin.charAt(i));
-				if(origin.charAt(i+1) != '(') isOk = true;
+				st[nowBn].push(origin.charAt(i));
 				break;
 				
 			case '(':
+				nowBn++;
 				break;
 				
 			case ')':
-				if(!st.isEmpty()) {
-					result.append(st.pop());
-					isOk = false;
+				nowBn--;
+				if(!st[nowBn].isEmpty()) {
+					result.append(st[nowBn].pop());
 				}
+				
 				break;
 				
 			default:
 				result.append(origin.charAt(i));
-				if(isOk) {
-					if(!st.isEmpty()) {
-						result.append(st.pop());
-						isOk = false;
-					}
+				if(!st[nowBn].isEmpty()) {
+					result.append(st[nowBn].pop());
 				}
 				break;
 				

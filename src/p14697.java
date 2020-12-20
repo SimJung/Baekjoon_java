@@ -10,8 +10,18 @@ public class p14697 {
 		int C = sc.nextInt();
 		int N = sc.nextInt();
 		
+		for(int i=0; i<=N/A; i++) {
+			for(int j=0; j<=N/B; j++) {
+				for(int k=0; k<=N/C; k++) {
+					if(i*A + j*B + k*C == N) {
+						System.out.println("1");
+						return ;
+					}
+				}
+			}
+		}
 		
-		
+		System.out.println("0");
 	}
 
 }
